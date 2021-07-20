@@ -1,0 +1,38 @@
+<div *ngIf="stockInfo">
+    <h4>{{ stockInfo.stockName }}</h4>
+    <span class="exchange-name">
+        {{ stockInfo.companyName }} - 
+        Currency in doller
+    </span>
+    <div>
+        <span class="current-price" *ngIf="message">
+            {{ message.openPrice }}</span>
+        <!-- <span class="current-points-gain" 
+        [ngClass]="{'positive': stockInfo.isPositive, 
+                    'negative': !stockInfo.isPositive}">
+            {{ stockInfo.changeinPoints.toFixed(2)}}
+        </span>
+        <span class="current-gains" 
+        [ngClass]="{'positive': stockInfo.isPositive, 
+                    'negative': !stockInfo.isPositive}">
+            ({{ stockInfo.percentageGains.toFixed(2)}}%)
+        </span> -->
+    </div>
+    <hr>
+    <div>
+        <label class="info-label">Open Price:</label>
+        <span>{{ stockInfo.openPrice.toFixed(2) }}</span>
+    </div>
+    <div>
+        <label class="info-label">Close Price:</label>
+        <span>{{ stockInfo.closePrice.toFixed(2) }}</span>
+    </div>
+    <div>
+        <label class="info-label">High Price:</label>
+        <span>{{ stockInfo.highPrice.toFixed(2) }}</span>
+    </div>
+    <div>
+        <label class="info-label">Low Price:</label>
+        <span>{{ stockInfo.lowPrice.toFixed(2) }}</span>
+    </div>
+</div>
