@@ -16,6 +16,7 @@ export class StocksService {
   private readonly isLocal = environment.isLocal;
 
   getAll(): Observable<Stock[]> {
-    return this.http.get<Stock[]>(this.API);
+    var a = this.http.get<Stock[]>(this.API);
+    return a;
   }
 }

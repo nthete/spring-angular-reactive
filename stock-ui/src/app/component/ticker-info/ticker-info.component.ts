@@ -6,6 +6,7 @@ import { StocksService } from 'src/app/service/stocks.service';
 import { environment } from 'src/environments/environment';
 import { map, take } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-ticker-info',
   templateUrl: './ticker-info.component.html',
@@ -18,20 +19,35 @@ export class TickerInfoComponent implements OnInit, OnDestroy {
   private readonly BASE_URL = environment.baseUrl;
   private sseStream: Subscription;
   message: Stock | undefined;
+  positive: Boolean = true
 
   constructor(private sseService: EventSourceService) {
     this.sseStream = this.sseService
+
     .observeMessages(`${this.BASE_URL}/stocks/ticker-price/stream`)
     .pipe(
       map((message: any) => {
         return message;
       }),
-      take(40)
+      take(10000)
     )
     .subscribe((message: Stock) => {
-      this.message = message;
+      if (this.stockInfo?.stockName == message.stockName) {
+        
+        this.message = message;
+        if (this.message != undefined) {
+          if (this.message.change >= 0) {
+            this.positive = true
+          } else {
+            this.positive = false;
+          }
+        }
+      }
+      
+     
     });
   }
+
 
   ngOnInit(): void {
   }
