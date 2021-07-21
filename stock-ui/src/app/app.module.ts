@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { TickerInfoComponent } from './component/ticker-info/ticker-info.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +15,7 @@ import { TickerInfoComponent } from './component/ticker-info/ticker-info.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
