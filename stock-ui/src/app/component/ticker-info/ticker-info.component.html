@@ -1,32 +1,32 @@
-<div *ngIf="data">
-    <h4>{{ data.stockName }}</h4>
+<div *ngIf="message">
+    <h4>{{ message.stockName }}</h4>
     <span class="exchange-name">
         NYQC - Currency in USD
     </span>
     <div>
         <span class="current-price">
-            {{ data.currentPrice }}</span>
+            {{ message.currentPrice }}</span>
         <span class="current-points-gain" 
         [ngClass]="{'positive': positive, 
                     'negative': !positive}">
-            {{ data.change}}
+            {{ message.change}}
         </span>
     </div>
     <hr>
     <div>
         <label class="info-label">Open Price:</label>
-        <span>{{ data.openPrice.toFixed(2) }}</span>
+        <span>{{ message.openPrice.toFixed(2) }}</span>
     </div>
     <div>
         <label class="info-label">Close Price:</label>
-        <span>{{ data.closePrice.toFixed(2) }}</span>
+        <span>{{ message.closePrice.toFixed(2) }}</span>
     </div>
     <div>
         <label class="info-label">High Price:</label>
-        <span>{{ data.highPrice.toFixed(2) }}</span>
+        <span>{{ message.highPrice.toFixed(2) }}</span>
     </div>
     <div>
         <label class="info-label">Low Price:</label>
-        <span>{{ data.lowPrice.toFixed(2) }}</span>
+        <span>{{ message.lowPrice.toFixed(2) }}</span>
     </div>
       </div>

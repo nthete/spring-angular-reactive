@@ -19,9 +19,6 @@ export class TickerInfoComponent implements OnInit, OnDestroy {
   private readonly BASE_URL = environment.baseUrl;
   private sseStream: Subscription;
   message: Stock | undefined;
-  allList: Stock[] = [];
-  customList: Stock[] = [];
-  data: Stock | undefined
   positive: Boolean = true
 
   constructor(private sseService: EventSourceService) {
@@ -35,17 +32,19 @@ export class TickerInfoComponent implements OnInit, OnDestroy {
       take(10000)
     )
     .subscribe((message: Stock) => {
-      this.allList.push(message);
-      console.log(message.companyName + '  ' + message.openPrice)
-      this.customList = this.allList.filter(stock => stock.stockName == this.stockInfo?.stockName) 
-      this.data = this.customList.pop();
-      if (this.data != undefined) {
-        if (this.data.change >= 0) {
-          this.positive = true
-        } else {
-          this.positive = false;
+      if (this.stockInfo?.stockName == message.stockName) {
+        
+        this.message = message;
+        if (this.message != undefined) {
+          if (this.message.change >= 0) {
+            this.positive = true
+          } else {
+            this.positive = false;
+          }
         }
       }
+      
+     
     });
   }
 
