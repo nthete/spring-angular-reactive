@@ -1,18 +1,23 @@
-<app-header></app-header>
-<div class="container">
+<div class="main">
+  <app-header></app-header>
+<div class="cntr">
   <h3>My Portfolio</h3>
-  <hr>
-  <div class="stocks-div">
-    <div *ngFor="let stock of stocks| async">
-        <div class="stock-div" (click)="stockClicked(stock)">
-            <span class="symbol">{{ stock.stockName }}</span>
-            <span class="company-name">({{ stock.companyName }})</span>
-        </div>
+   <hr>
+   <div class="data">
+    <div class="stocks-div">
+      <div *ngFor="let stock of stocks| async">
+          <div class="stock-div" (click)="stockClicked(stock)">
+              <span class="symbol">{{ stock.stockName }}</span>
+              <span class="company-name">({{ stock.companyName }})</span>
+          </div>
+      </div>
     </div>
-  </div>
-  <div class="ticker-info-div">
-    <app-ticker-info 
-        [stockInfo]="selectedStock" 
-        *ngIf="selectedStock != undefined"></app-ticker-info>
-  </div>
+    <div class="ticker-info-div">
+      <app-ticker-info 
+          [stockInfo]="selectedStock" 
+          *ngIf="selectedStock != undefined"></app-ticker-info>
+    </div>
+   </div>
+
+</div>
 </div>

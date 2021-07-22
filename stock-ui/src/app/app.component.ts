@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Stock } from './model/stock';
 import { StocksService } from './service/stocks.service';
@@ -11,16 +11,12 @@ import { StocksService } from './service/stocks.service';
 export class AppComponent {
   title = 'stocks';
   stocks: Observable<Stock[]>
-  
+
   constructor(private stockService: StocksService) {
     this.stocks = this.stockService.getAll();
   }
-  /*[ 
-    { symbol: 'TSLA', name: 'Tesla, Inc.'},
-    { symbol: 'MSFT', name: 'Microsoft Corporation'},
-    { symbol: 'SPCE', name: 'Virgin Galactic'},
-    { symbol: 'CVS', name: 'CVS Pharmacy'},
-  ];*/
+
+  
   selectedStock: Stock | undefined;
   
   ngOnInit(){

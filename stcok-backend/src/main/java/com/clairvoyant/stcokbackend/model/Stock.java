@@ -14,8 +14,10 @@ public class Stock {
   private String stockName;
   private String companyName;
   private String companyInfo;
+  private Double currentPrice;
   private Double openPrice;
   private Double closePrice;
   private Double highPrice;
   private Double lowPrice;
+  private Double change;
 }
