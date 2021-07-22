@@ -29,25 +29,28 @@ public class VirtualStreamService {
         this.updateList = list;
     }
 
-    @Scheduled(initialDelay = 0, fixedRate = 1000)
-    private void updateService() {
-        updateList.forEach(stock -> {
-            boolean randomBoolean = random.nextBoolean();
-            double number = Precision.round(random.nextDouble() * .9, 2);
-            if (randomBoolean) {
-                stock.setCurrentPrice(stock.getCurrentPrice() + number);
-                stock.setChange(0 + number);
-            } else {
-                stock.setCurrentPrice(stock.getCurrentPrice() - number);
-                stock.setChange(0 - number);
-            }
+    public Stock getStockByName(String name) {
+        for (Stock stock: updateList) {
+            if (stock.getStockName().equalsIgnoreCase(name)) {
+                boolean randomBoolean = random.nextBoolean();
+                double number = Precision.round(random.nextDouble() * .9, 2);
+                if (randomBoolean) {
+                    stock.setCurrentPrice(stock.getCurrentPrice() + number);
+                    stock.setChange(0 + number);
+                } else {
+                    stock.setCurrentPrice(stock.getCurrentPrice() - number);
+                    stock.setChange(0 - number);
+                }
 
-            if (stock.getCurrentPrice() > stock.getHighPrice()) {
-                stock.setHighPrice(stock.getCurrentPrice());
-            } else if (stock.getCurrentPrice() < stock.getLowPrice()) {
-                stock.setLowPrice(stock.getCurrentPrice());
+                if (stock.getCurrentPrice() > stock.getHighPrice()) {
+                    stock.setHighPrice(stock.getCurrentPrice());
+                } else if (stock.getCurrentPrice() < stock.getLowPrice()) {
+                    stock.setLowPrice(stock.getCurrentPrice());
+                }
+                return stock;
             }
-        });
+        }
+        return new Stock("NEW", "New Inc.", "Random", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 
     public Flux<Stock> getVirtualStream() {
