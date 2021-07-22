@@ -47,6 +47,7 @@ public class VirtualStreamService {
                 } else if (stock.getCurrentPrice() < stock.getLowPrice()) {
                     stock.setLowPrice(stock.getCurrentPrice());
                 }
+                stock.setCurrentPrice(Precision.round(stock.getCurrentPrice() * .9, 2));
                 return stock;
             }
         }
