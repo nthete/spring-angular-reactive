@@ -1,17 +1,20 @@
 package com.clairvoyant.stcokbackend.controller;
 
 import com.clairvoyant.stcokbackend.model.Stock;
-import com.clairvoyant.stcokbackend.repository.StockPriceRepository;
 import com.clairvoyant.stcokbackend.repository.StockRepository;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,24 +34,35 @@ public class StocksController {
   }
 
   @GetMapping("/{id}")
-  public Mono<ResponseEntity<Stock>> getById(@PathVariable String name) {
+  public Mono<ResponseEntity<Stock>> getById(@PathVariable String id) {
     return stockRepository
-        .findByStockName(name)
+        .findByStockName(id)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
   @PostMapping("/{id}")
-  public Mono<ResponseEntity<Stock>> createStock(@RequestBody Stock stock) {
+  public Mono<ResponseEntity<Boolean>> createStock(@PathVariable String id, @RequestBody Stock stock) {
+    if(!id.equalsIgnoreCase(stock.getStockName())) {
+      throw new IllegalArgumentException();
+    }
     return stockRepository
         .save(stock)
-        .map(ResponseEntity::ok);
+        .map(savedStock -> ResponseEntity.ok(Objects.nonNull(savedStock)));
+  }
+
+  @ResponseStatus(
+      value = HttpStatus.BAD_REQUEST,
+      reason = "Illegal arguments")
+  @ExceptionHandler(IllegalArgumentException.class)
+  public void illegalArgumentHandler() {
+    //
   }
 
   @DeleteMapping("/{id}")
-  public Mono<ResponseEntity<Void>> deleteById(@PathVariable String name) {
+  public Mono<ResponseEntity<Void>> deleteById(@PathVariable String id) {
     return stockRepository
-        .deleteById(name)
+        .deleteById(id)
         .map(ResponseEntity::ok);
   }
 }
