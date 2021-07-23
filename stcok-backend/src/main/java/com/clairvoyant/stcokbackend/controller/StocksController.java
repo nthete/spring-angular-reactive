@@ -23,7 +23,6 @@ import reactor.core.publisher.Mono;
 public class StocksController {
 
   private final StockRepository stockRepository;
-  private final StockPriceRepository stockPriceRepository;
 
 
   @GetMapping
@@ -43,8 +42,7 @@ public class StocksController {
   public Mono<ResponseEntity<Stock>> createStock(@RequestBody Stock stock) {
     return stockRepository
         .save(stock)
-        .map(ResponseEntity::ok)
-        .defaultIfEmpty(ResponseEntity.notFound().build());
+        .map(ResponseEntity::ok);
   }
 
   @DeleteMapping("{id}")
