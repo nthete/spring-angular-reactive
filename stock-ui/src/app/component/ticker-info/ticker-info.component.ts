@@ -54,7 +54,7 @@ export class TickerInfoComponent implements OnDestroy, OnChanges, OnInit {
       this.sseStream.unsubscribe();
     }
       this.sseStream = this.sseService
-        .observeMessages(`${this.BASE_URL}/stocks/ticker-price/stream/` + stockName)
+        .observeMessages(`${this.BASE_URL}/stocks-price/`+stockName+`/stream`)
         .pipe(
           map((message: any) => {
             return message;
