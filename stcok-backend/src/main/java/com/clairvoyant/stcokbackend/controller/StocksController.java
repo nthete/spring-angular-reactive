@@ -30,7 +30,7 @@ public class StocksController {
     return stockRepository.findAll();
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public Mono<ResponseEntity<Stock>> getById(@PathVariable String name) {
     return stockRepository
         .findByStockName(name)
@@ -38,14 +38,14 @@ public class StocksController {
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
-  @PostMapping("{id}")
+  @PostMapping("/{id}")
   public Mono<ResponseEntity<Stock>> createStock(@RequestBody Stock stock) {
     return stockRepository
         .save(stock)
         .map(ResponseEntity::ok);
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public Mono<ResponseEntity<Void>> deleteById(@PathVariable String name) {
     return stockRepository
         .deleteById(name)
