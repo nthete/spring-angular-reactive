@@ -33,6 +33,17 @@ public class StocksController {
     return stockRepository.findAll();
   }
 
+  /**
+    // SPRING MVC
+
+    @GetMapping
+    public List<Stock> getAll() {
+      return stockRepository.findAll();
+    }
+
+  */
+
+
   @GetMapping("/{id}")
   public Mono<ResponseEntity<Stock>> getById(@PathVariable String id) {
     return stockRepository
@@ -40,6 +51,17 @@ public class StocksController {
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
+
+  /**
+
+   // SPRING MVC
+
+   @GetMapping("/{id}")
+   public Stock getById(@PathVariable String id) {
+     return stockRepository
+             .findByStockName(id);
+   }
+   */
 
   @PostMapping("/{id}")
   public Mono<ResponseEntity<Boolean>> createStock(@PathVariable String id, @RequestBody Stock stock) {

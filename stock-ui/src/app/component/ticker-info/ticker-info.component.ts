@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Stock } from 'src/app/model/stock';
 import { EventSourceService } from 'src/app/service/event-source.service';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { SimpleChanges } from '@angular/core';
 
 
